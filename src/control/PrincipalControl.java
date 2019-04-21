@@ -1,66 +1,70 @@
 package control;
 
+import java.awt.Desktop;
 import java.beans.PropertyVetoException;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import model.OrdemFrame;
 import view.CadastroDeCliente;
 import view.TelaPrincipal;
 import view.TelaSobre;
 
 public class PrincipalControl {
 
-    private CadastroDeCliente telaCadastroCliente = null;
-    private TelaSobre telaSobre = null;
+    List<Integer> listFrames;
+
+    public PrincipalControl() {
+        this.listFrames = new ArrayList<>();
+        adicionarInternalFrames();
+    }
 
     public void telaCadastroClienteAction() {
-        verificarExistencia(telaCadastroCliente);
+        verificarAbrir(CadastroDeCliente.ordemFrame);
     }
 
     public void telaSobreAction() {
-        verificarExistenciaSobre(telaSobre);
+        verificarAbrir(TelaSobre.ordemFrame);
     }
 
-    private void verificarExistencia(JInternalFrame frame) {
-        if (frame != null) {
-            if (frame.isIcon() == true) {
-                try {
-                    frame.setIcon(false);
-                } catch (PropertyVetoException ex) {
-                    Logger.getLogger(PrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
+    private boolean verificarAbrir(int numero) {
+        JInternalFrame tela = OrdemFrame.internalFrames.get(numero);
+        for (Integer listFrame : listFrames) {
+            if (listFrame == numero) {
+                if (tela.isIcon()) {
+                    System.out.println("Tá minimizado");
+                    try {
+                        tela.setIcon(false);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(PrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    return false;
+                } else {
+                    System.out.println("Criando outra X2");
+                    TelaPrincipal.dpPrincipal.add(tela);
+                    tela.show();
+                    return true;
                 }
-            } else {
-                frame = new CadastroDeCliente();
-                TelaPrincipal.dpPrincipal.add(frame);
-                frame.show();
-
             }
-        } else {
-            frame = new CadastroDeCliente();
-            TelaPrincipal.dpPrincipal.add(frame);
-            frame.show();
         }
+        System.out.println("Criando Outra");
+        TelaPrincipal.dpPrincipal.add(tela);
+        listFrames.add(numero);
+        tela.show();
+        return true;
     }
 
-    private void verificarExistenciaSobre(JInternalFrame frame) {
-        if (frame != null) {
-            if (frame.isIcon() == true) {
-                try {
-                    frame.setIcon(false);
-                } catch (PropertyVetoException ex) {
-                    Logger.getLogger(PrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                frame = new TelaSobre();
-                TelaPrincipal.dpPrincipal.add(frame);
-                frame.show();
+    private void adicionarInternalFrames() {
+        OrdemFrame.adicionar(new CadastroDeCliente(), CadastroDeCliente.ordemFrame);
+        OrdemFrame.adicionar(new TelaSobre(), TelaSobre.ordemFrame);
+    }
 
-            }
-        } else {
-            frame = new TelaSobre();
-            TelaPrincipal.dpPrincipal.add(frame);
-            frame.show();
-        }
+    public void telaManualAction() {
+      
     }
 
 }

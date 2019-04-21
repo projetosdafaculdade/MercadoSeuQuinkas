@@ -1,13 +1,13 @@
 package view;
 
-
 public class TelaSobre extends javax.swing.JInternalFrame {
 
+    public static final int ordemFrame = 1;
 
     public TelaSobre() {
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
