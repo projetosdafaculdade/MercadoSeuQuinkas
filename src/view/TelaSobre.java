@@ -1,11 +1,57 @@
 package view;
 
+import control.PrincipalControl;
+import javax.swing.JInternalFrame;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+
 public class TelaSobre extends javax.swing.JInternalFrame {
 
     public static final int ordemFrame = 1;
+    JInternalFrame frame;
+    PrincipalControl control;
 
     public TelaSobre() {
         initComponents();
+    }
+
+    public TelaSobre(PrincipalControl aThis) {
+        control = aThis;
+        initComponents();
+         frame = this;
+
+        addInternalFrameListener(new InternalFrameListener() {
+            @Override
+            public void internalFrameOpened(InternalFrameEvent e) {
+            }
+
+            @Override
+            public void internalFrameClosing(InternalFrameEvent e) {
+            }
+
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+                control.fecharAction(frame, ordemFrame);
+            }
+
+            @Override
+            public void internalFrameIconified(InternalFrameEvent e) {
+            }
+
+            @Override
+            public void internalFrameDeiconified(InternalFrameEvent e) {
+            }
+
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e) {
+            }
+
+            @Override
+            public void internalFrameDeactivated(InternalFrameEvent e) {
+            }
+
+        });
+
     }
 
     @SuppressWarnings("unchecked")

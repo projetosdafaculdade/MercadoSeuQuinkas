@@ -1,6 +1,7 @@
 package view;
 
 import control.PrincipalControl;
+import java.awt.Desktop;
 
 public class TelaPrincipal extends javax.swing.JFrame {
 
@@ -192,24 +193,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-
+   // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void jMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu5ActionPerformed
-    control.telaSobreAction();
+        control.telaSobreAction();
     }//GEN-LAST:event_jMenu5ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-    control.telaManualAction();
+        control.abrirManualAction();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+        control.telaAjudaAction();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-    control.telaSobreAction();
+        control.telaSobreAction();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
 
     public static void main(String args[]) {
 
@@ -218,10 +220,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(new Runnable() {

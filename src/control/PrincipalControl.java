@@ -1,16 +1,21 @@
 package control;
 
+import static com.sun.java.accessibility.util.SwingEventMonitor.addInternalFrameListener;
 import java.awt.Desktop;
 import java.beans.PropertyVetoException;
-import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-import model.OrdemFrame;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+import model.frames.OrdemFrame;
 import view.CadastroDeCliente;
+import static view.CadastroDeCliente.ordemFrame;
+import view.TelaAjuda;
 import view.TelaPrincipal;
 import view.TelaSobre;
 
@@ -23,48 +28,93 @@ public class PrincipalControl {
         adicionarInternalFrames();
     }
 
+    private void adicionarInternalFrames() {
+        OrdemFrame.adicionar(new CadastroDeCliente(this), CadastroDeCliente.ordemFrame);
+        OrdemFrame.adicionar(new TelaSobre(this), TelaSobre.ordemFrame);
+        OrdemFrame.adicionar(new TelaAjuda(this), TelaAjuda.ordemFrame);
+    }
+
     public void telaCadastroClienteAction() {
-        verificarAbrir(CadastroDeCliente.ordemFrame);
+        try {
+            verificarAbrir(CadastroDeCliente.ordemFrame);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(PrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void telaSobreAction() {
-        verificarAbrir(TelaSobre.ordemFrame);
+        try {
+            verificarAbrir(TelaSobre.ordemFrame);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(PrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private boolean verificarAbrir(int numero) {
+    public void telaAjudaAction() {
+        try {
+            verificarAbrir(TelaAjuda.ordemFrame);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(PrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private boolean verificarAbrir(int numero) throws PropertyVetoException {
         JInternalFrame tela = OrdemFrame.internalFrames.get(numero);
         for (Integer listFrame : listFrames) {
             if (listFrame == numero) {
                 if (tela.isIcon()) {
-                    System.out.println("Tá minimizado");
-                    try {
-                        tela.setIcon(false);
-                    } catch (PropertyVetoException ex) {
-                        Logger.getLogger(PrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    tela.setIcon(false);
                     return false;
                 } else {
-                    System.out.println("Criando outra X2");
-                    TelaPrincipal.dpPrincipal.add(tela);
-                    tela.show();
-                    return true;
+                    tela.setIcon(false);
+                    return false;
                 }
             }
         }
-        System.out.println("Criando Outra");
         TelaPrincipal.dpPrincipal.add(tela);
         listFrames.add(numero);
         tela.show();
         return true;
     }
 
-    private void adicionarInternalFrames() {
-        OrdemFrame.adicionar(new CadastroDeCliente(), CadastroDeCliente.ordemFrame);
-        OrdemFrame.adicionar(new TelaSobre(), TelaSobre.ordemFrame);
+    private boolean verificarFechar(int numero) {
+        for (int i = 0; i < listFrames.size(); i++) {
+            if (numero == listFrames.get(i)) {
+                listFrames.remove(numero);
+            }
+        }
+
+        return false;
     }
 
-    public void telaManualAction() {
-      
+    public void abrirManualAction() {
+        openWebpage("C:/Users/johnatan.souza/Desktop/MercadoSeuQuinkas/src/manual/Manual.pdf");
     }
 
+    private void openWebpage(String url) {
+        URI uri = URI.create(url);
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(uri);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void fecharAction(JInternalFrame aThis, int ordemFrame) {
+        verificarFechar(ordemFrame);
+    }
+
+    public void fecharAction(JInternalFrame aThis) {
+        aThis.dispose();
+    }
+
+    public void acessarLink(String url) {
+        openWebpage(url);
+    }
+
+ 
 }
