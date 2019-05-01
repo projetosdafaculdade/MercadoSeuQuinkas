@@ -1,9 +1,11 @@
 package view;
 
+import control.CadastroDeClienteControl;
 import control.PrincipalControl;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
+import model.vo.Cidade;
 
 public final class CadastroDeCliente extends javax.swing.JInternalFrame {
 
@@ -19,7 +21,7 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
     public CadastroDeCliente(PrincipalControl aThis) {
         control = aThis;
         initComponents();
-        
+        control.cadastroDeCliente = new CadastroDeClienteControl(btnBotao, jcbCidade, jtfCep, jtfDtNascimento, jtfNome);
         frame = this;
         addInternalFrameListener(new InternalFrameListener() {
             @Override
@@ -52,7 +54,7 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
             }
 
         });
-
+        control.cadastroDeCliente.listarCidades();
     }
 
     @SuppressWarnings("unchecked")
@@ -68,7 +70,7 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jtfDtNascimento = new javax.swing.JTextField();
         jcbCidade = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        btnBotao = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -89,9 +91,14 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Data de Nascimento");
 
-        jcbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cidade de Deus" }));
+        jcbCidade.setModel(new javax.swing.DefaultComboBoxModel(new Cidade[] {}));
 
-        jButton2.setText("...");
+        btnBotao.setText("...");
+        btnBotao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBotaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +115,7 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jcbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -140,7 +147,7 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
                 .addComponent(jtfDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnBotao, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                     .addComponent(jcbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
@@ -152,18 +159,22 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        control.cadastroDeCliente.cadastrarCliente();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBotaoActionPerformed
+      control.cadastroDeCliente.listarCidade();
+    }//GEN-LAST:event_btnBotaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBotao;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JComboBox<String> jcbCidade;
+    private javax.swing.JComboBox<Cidade> jcbCidade;
     private javax.swing.JTextField jtfCep;
     private javax.swing.JTextField jtfDtNascimento;
     private javax.swing.JTextField jtfNome;

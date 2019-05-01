@@ -13,6 +13,14 @@ public class Cliente {
     cidade = new Cidade();
     }
 
+    public Cliente(String nome, Date dataNascimento, String cep, Cidade cidade) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.cep = cep;
+        this.cidade = cidade;
+    }
+
+    
     public Cliente(Integer id, String nome, Date dataNascimento, String cep, Cidade cidade) {
         this.id = id;
         this.nome = nome;

@@ -1,7 +1,6 @@
 package model.dao;
 
 import interfaces.DaoI;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +13,7 @@ public class ClienteDao extends Dao implements DaoI<Cliente> {
 
     @Override
     public int cadastrar(Cliente obj) {
-      String sql = "INSERT INTO CLIENTE(NOME,CEP, DATANASCIMENTO, CIDADE_ID) VALUES (?,?,?,?)";
+      String sql = "INSERT INTO CLIENTE(NOME,CEP, DATANASCIMENTO, IDCIDADE) VALUES (?,?,?,?)";
       try{
           PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
           stmt.setString(1, obj.getNome());
@@ -51,31 +50,29 @@ public class ClienteDao extends Dao implements DaoI<Cliente> {
 
     @Override
     public List<Cliente> pesquisarTodos() {
-        return pesquisarTodos("nome", "ASC");
+        return pesquisarTodos("CLIENTE.NOME", "ASC");
     }
 
     public List<Cliente> pesquisarTodos(String orderBy, String ordenacao) {
-        String sql = "SELECT "
-                + "CLI.ID, CLI.NOME, CLI.CEP, CLI.DATANASCIMENTO, CLI.CIDADE_ID,"
-                + "CID.NOME, CID.UF"
-                + "FROM CLIENTE CLIENTE AS CLI"
-                + "INNER JOIN CIDADE CIDADE AS CID ON"
-                + "CLI.CIDADE_ID = CID_ID"
-                + "WHERE ATIVO = 1 AND CID.ATIVO = 1 "
-                + "ORDER BY " + orderBy + " " + ordenacao;
+        String sql = "SELECT CLIENTE.IDCLIENTE, CLIENTE.NOME, CLIENTE.CEP, CLIENTE.DATANASCIMENTO, CIDADE.IDCIDADE,CIDADE.NOME, CIDADE.UF " +
+"FROM CLIENTE " +
+"INNER JOIN CIDADE ON " +
+"CLIENTE.IDCIDADE = CIDADE.IDCIDADE " +
+"WHERE ATIVO = 1 AND CIDADE.ATIVO = 1 " +
+"ORDER BY " + orderBy + " " + ordenacao;
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             List<Cliente> listCliente = new ArrayList<>();
             while (rs.next()) {
                 Cliente c = new Cliente();
-                c.setCep(rs.getString("cli.cep"));
-                c.setDataNascimento(rs.getDate("cli.dataNascimento"));
-                c.setId(rs.getInt("cli;id"));
-                c.setNome(sql);
-                c.getCidade().setId(rs.getInt("cid.id"));
-                c.getCidade().setNome(rs.getString("cid.nome"));
-                c.getCidade().setUf(rs.getString("cid.uf"));
+                c.setCep(rs.getString("CLIENTE.CEP"));
+                c.setDataNascimento(rs.getDate("CLIENTE.DATANASCIMENTO"));
+                c.setId(rs.getInt("CLIENTE.IDCLIENTE"));
+                c.setNome(rs.getString("CLIENTE.NOME"));
+                c.getCidade().setId(rs.getInt("CIDADE.IDCIDADE"));
+                c.getCidade().setNome(rs.getString("CIDADE.NOME"));
+                c.getCidade().setUf(rs.getString("CIDADE.UF"));
                 listCliente.add(c);
             }
             return listCliente;

@@ -3,6 +3,7 @@ package model.table;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import view.CadastrarCidade;
 
 public class PaginaTable extends AbstractTableModel {
 
@@ -18,7 +19,9 @@ public class PaginaTable extends AbstractTableModel {
         if (this.paginaAtual == 0) {
             this.paginaAtual = 1;
         }
-        this.listTempTotal = tabela;
+        if (tabela != null) {
+            this.listTempTotal = tabela;
+        }
         this.limitePorPagina = limitePorPagina;
         this.COLUNAS = COLUNAS;
         this.realizarMatriz();
@@ -150,7 +153,6 @@ public class PaginaTable extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        System.out.println("Z:" + COLUNAS.size());
         return COLUNAS.size();
     }
 
@@ -190,10 +192,12 @@ public class PaginaTable extends AbstractTableModel {
     }
 
     public void excluir(int selectedRow) {
-        for (int i = 0; COLUNAS.size() > i; i++) {
-            listTempTotal.remove(selectedRow);
-        }
+        listTempTotal.remove(selectedRow);
     }
 
+    public void excluirTodasAsLinhas() {
+        listTempTotal = new ArrayList<>();
+        fireTableDataChanged();
+    }
 
 }

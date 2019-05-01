@@ -1,20 +1,15 @@
 package control;
 
-import static com.sun.java.accessibility.util.SwingEventMonitor.addInternalFrameListener;
 import java.awt.Desktop;
 import java.beans.PropertyVetoException;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
-import javax.swing.event.InternalFrameEvent;
-import javax.swing.event.InternalFrameListener;
 import model.frames.OrdemFrame;
 import view.CadastroDeCliente;
-import static view.CadastroDeCliente.ordemFrame;
 import view.TelaAjuda;
 import view.TelaPrincipal;
 import view.TelaSobre;
@@ -22,9 +17,16 @@ import view.TelaSobre;
 public class PrincipalControl {
 
     List<Integer> listFrames;
+    public static CadastroDeClienteControl cadastroDeCliente;
 
     public PrincipalControl() {
-        this.listFrames = new ArrayList<>();
+        gestaoListFrames();
+    }
+
+    private void gestaoListFrames() {
+        if (listFrames == null) {
+            this.listFrames = new ArrayList<>();
+        }
         adicionarInternalFrames();
     }
 
@@ -116,5 +118,5 @@ public class PrincipalControl {
         openWebpage(url);
     }
 
- 
+
 }
