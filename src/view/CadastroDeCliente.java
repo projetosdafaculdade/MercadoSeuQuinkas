@@ -21,7 +21,7 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
     public CadastroDeCliente(PrincipalControl aThis) {
         control = aThis;
         initComponents();
-        control.cadastroDeCliente = new CadastroDeClienteControl(btnBotao, jcbCidade, jtfCep, jtfDtNascimento, jtfNome);
+        control.cadastroDeCliente = new CadastroDeClienteControl(btnBotao, jcbCidade, jtfCep, jtfDtNascimento, jtfNome, this);
         frame = this;
         addInternalFrameListener(new InternalFrameListener() {
             @Override
@@ -68,9 +68,9 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
         jtfCep = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jtfDtNascimento = new javax.swing.JTextField();
         jcbCidade = new javax.swing.JComboBox<>();
         btnBotao = new javax.swing.JButton();
+        jtfDtNascimento = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -100,6 +100,9 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jtfDtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##/##/####"))));
+        jtfDtNascimento.setText("14/06/2000");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,18 +113,20 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtfNome)
                     .addComponent(jtfCep)
-                    .addComponent(jtfDtNascimento)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jcbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jcbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBotao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -176,7 +181,7 @@ public final class CadastroDeCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JComboBox<Cidade> jcbCidade;
     private javax.swing.JTextField jtfCep;
-    private javax.swing.JTextField jtfDtNascimento;
+    private javax.swing.JFormattedTextField jtfDtNascimento;
     private javax.swing.JTextField jtfNome;
     // End of variables declaration//GEN-END:variables
 

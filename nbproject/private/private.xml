@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PliceMan/Documents/Projetos/MercadoSeuQuinkas/src/view/TelaPrincipal.java</file>
-            <file>file:/C:/Users/PliceMan/Documents/Projetos/MercadoSeuQuinkas/src/model/dao/CidadeDao.java</file>
-            <file>file:/C:/Users/PliceMan/Documents/Projetos/MercadoSeuQuinkas/src/control/CadastroDeClienteControl.java</file>
-            <file>file:/C:/Users/PliceMan/Documents/Projetos/MercadoSeuQuinkas/src/model/vo/Cliente.java</file>
-            <file>file:/C:/Users/PliceMan/Documents/Projetos/MercadoSeuQuinkas/src/model/dao/ClienteDao.java</file>
-            <file>file:/C:/Users/PliceMan/Documents/Projetos/MercadoSeuQuinkas/src/view/CadastroDeCliente.java</file>
-            <file>file:/C:/Users/PliceMan/Documents/Projetos/MercadoSeuQuinkas/src/control/CidadeControl.java</file>
-            <file>file:/C:/Users/PliceMan/Documents/Projetos/MercadoSeuQuinkas/src/control/PrincipalControl.java</file>
+            <file>file:/C:/xampp/htdocs/MercadoSeuQuinkas/src/util/Validar.java</file>
+            <file>file:/C:/xampp/htdocs/MercadoSeuQuinkas/src/view/CadastrarCidade.java</file>
+            <file>file:/C:/xampp/htdocs/MercadoSeuQuinkas/src/control/CadastroDeClienteControl.java</file>
+            <file>file:/C:/xampp/htdocs/MercadoSeuQuinkas/src/view/TelaAjuda.java</file>
+            <file>file:/C:/xampp/htdocs/MercadoSeuQuinkas/src/view/ListarCidade.java</file>
+            <file>file:/C:/xampp/htdocs/MercadoSeuQuinkas/src/view/TelaSobre.java</file>
+            <file>file:/C:/xampp/htdocs/MercadoSeuQuinkas/src/view/CadastroDeCliente.java</file>
+            <file>file:/C:/xampp/htdocs/MercadoSeuQuinkas/src/control/PrincipalControl.java</file>
         </group>
     </open-files>
 </project-private>

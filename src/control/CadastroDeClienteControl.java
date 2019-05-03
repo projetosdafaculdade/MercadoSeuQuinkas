@@ -1,16 +1,17 @@
 package control;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.dao.CidadeDao;
 import model.dao.ClienteDao;
 import model.vo.Cidade;
 import model.vo.Cliente;
-import view.CadastrarCidade;
+import util.Validar;
+import view.CadastroDeCliente;
 import view.ListarCidade;
 
 public class CadastroDeClienteControl {
@@ -24,13 +25,15 @@ public class CadastroDeClienteControl {
     List<Cidade> cidades = new ArrayList<>();
     CidadeDao cidadeDao = new CidadeDao();
     ClienteDao clienteDao = new ClienteDao();
+    CadastroDeCliente aThis;
 
-    public CadastroDeClienteControl(JButton btnBotao, JComboBox<Cidade> jcbCidade, JTextField jtfCep, JTextField jtfDtNascimento, JTextField jtfNome) {
+    public CadastroDeClienteControl(JButton btnBotao, JComboBox<Cidade> jcbCidade, JTextField jtfCep, JTextField jtfDtNascimento, JTextField jtfNome, CadastroDeCliente aThis) {
         this.btnBotao = btnBotao;
         this.jcbCidade = jcbCidade;
         this.jtfCep = jtfCep;
         this.jtfDtNascimento = jtfDtNascimento;
         this.jtfNome = jtfNome;
+        this.aThis = aThis;
     }
 
     public void listarCidades() {
@@ -41,18 +44,26 @@ public class CadastroDeClienteControl {
     }
 
     public void cadastrarCliente() {
-        Cliente cliente = new Cliente(jtfNome.getText(), util.Conversor.dataUtilParaSql(new Date(jtfDtNascimento.getText())), jtfCep.getText(), (Cidade) jcbCidade.getSelectedItem());
-        clienteDao.cadastrar(cliente);
+        if (Validar.validarString(jtfNome.getText()) && Validar.validarCEP(jtfCep.getText())) {
+            Cliente cliente = new Cliente(jtfNome.getText(), util.Conversor.dataUsuarioParaBanco((jtfDtNascimento.getText())), jtfCep.getText(), (Cidade) jcbCidade.getSelectedItem());
+            if (clienteDao.cadastrar(cliente) > 0) {
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                aThis.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Escreva todas as informações corretamente");
+        }
     }
 
     public void listarCidade() {
-        int idCidade = 0; // CRIAR CLASSE EM VEZ DE INT PARA RETORNAR VALOR
-        ListarCidade listarCidade = new ListarCidade(null, true,idCidade);
+        Cidade cidade = new Cidade();
+        ListarCidade listarCidade = new ListarCidade(null, true, cidade);
         listarCidade.setVisible(true);
         listarCidades();
-        System.out.println("ID:CIDADE"+idCidade);
         for (int i = 0; i < jcbCidade.getItemCount(); i++) {
-            if (jcbCidade.getItemAt(i).getId() == idCidade) {
+            if (jcbCidade.getItemAt(i).getId() == cidade.getId()) {
                 jcbCidade.setSelectedIndex(i);
             }
         }

@@ -1,16 +1,17 @@
 package view;
 
 import control.CidadeControl;
+import model.vo.Cidade;
 
 public class ListarCidade extends javax.swing.JDialog {
 
     CidadeControl control;
-    Integer idCidade;
+    Cidade cidade;
 
-    public ListarCidade(java.awt.Frame parent, boolean modal, int idCidade) {
+    public ListarCidade(java.awt.Frame parent, boolean modal, Cidade cidade) {
         super(parent, modal);
         initComponents();
-        idCidade = idCidade;
+        this.cidade = cidade;
         control = new CidadeControl(jtfPesquisar, jbtnPesquisar, jtblCidades,this);
     }
 
@@ -48,6 +49,17 @@ public class ListarCidade extends javax.swing.JDialog {
         jbtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnPesquisarActionPerformed(evt);
+            }
+        });
+
+        jtfPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfPesquisarActionPerformed(evt);
+            }
+        });
+        jtfPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfPesquisarKeyReleased(evt);
             }
         });
 
@@ -106,8 +118,16 @@ public class ListarCidade extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       idCidade.valueOf(control.selecionarCidade());
+       cidade.setId(control.selecionarCidade());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jtfPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPesquisarActionPerformed
+    
+    }//GEN-LAST:event_jtfPesquisarActionPerformed
+
+    private void jtfPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisarKeyReleased
+       control.listarCidadePesquisando();
+    }//GEN-LAST:event_jtfPesquisarKeyReleased
 
     public static void main(String args[]) {
         try {
@@ -123,7 +143,7 @@ public class ListarCidade extends javax.swing.JDialog {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ListarCidade dialog = new ListarCidade(new javax.swing.JFrame(), true, 0);
+                ListarCidade dialog = new ListarCidade(new javax.swing.JFrame(), true, new Cidade());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

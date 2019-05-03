@@ -2,6 +2,8 @@ package control;
 
 import java.awt.Desktop;
 import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +85,7 @@ public class PrincipalControl {
     private boolean verificarFechar(int numero) {
         for (int i = 0; i < listFrames.size(); i++) {
             if (numero == listFrames.get(i)) {
-                listFrames.remove(numero);
+                listFrames.remove(i);
             }
         }
 
@@ -91,7 +93,11 @@ public class PrincipalControl {
     }
 
     public void abrirManualAction() {
-        openWebpage("C:/Users/johnatan.souza/Desktop/MercadoSeuQuinkas/src/manual/Manual.pdf");
+        try {
+            openWebpage(String.valueOf(new File("..").getCanonicalPath() + "/MercadoSeuQuinkas/src/manual/Manual.pdf").replaceAll("\\\\", "/"));
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void openWebpage(String url) {
@@ -117,6 +123,5 @@ public class PrincipalControl {
     public void acessarLink(String url) {
         openWebpage(url);
     }
-
 
 }
